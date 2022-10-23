@@ -454,3 +454,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 /Photos.Web/photos.db-wal
 /Photos.Web/photos.db-shm
+/Photos.Web/photos.db
