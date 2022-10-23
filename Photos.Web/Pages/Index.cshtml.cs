@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Photos.Web.Pages;
-
-public class IndexModel : PageModel
+namespace Photos.Web.Pages
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    public class IndexModel : PageModel
     {
-        _logger = logger;
-    }
+        private readonly ILogger<IndexModel> _logger;
 
-    public void OnGet()
-    {
+        public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+        }
 
+        public bool IsAdmin { get; set; }
+
+        public Task OnGet()
+        {
+            IsAdmin = User.IsInRole(Strings.AdminRole);
+            return Task.CompletedTask;
+        }
     }
 }

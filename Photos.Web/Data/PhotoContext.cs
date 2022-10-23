@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Photos.Shared.Models;
 
-namespace Photos.Web;
+namespace Photos.Web.Data;
 
-public class PhotoContext : DbContext
+public class PhotoContext : IdentityDbContext
 {
     public PhotoContext(DbContextOptions<PhotoContext> options)
         : base(options)

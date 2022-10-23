@@ -452,3 +452,5 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/Photos.Web/photos.db-wal
+/Photos.Web/photos.db-shm

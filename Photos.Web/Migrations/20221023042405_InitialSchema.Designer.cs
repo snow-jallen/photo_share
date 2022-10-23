@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Photos.Web;
+using Photos.Web.Data;
 
 #nullable disable
 
 namespace Photos.Web.Migrations
 {
     [DbContext(typeof(PhotoContext))]
-    [Migration("20221022220802_InitialSchema")]
+    [Migration("20221023042405_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,203 @@ namespace Photos.Web.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
 
-            modelBuilder.Entity("Photos.Shared.AccessCode", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Photos.Shared.Models.AccessCode", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +238,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("AccessCodes");
                 });
 
-            modelBuilder.Entity("Photos.Shared.AccessRequest", b =>
+            modelBuilder.Entity("Photos.Shared.Models.AccessRequest", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +273,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("AccessRequests");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Authorization", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Authorization", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +294,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("Authorizations");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Category", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +308,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Event", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Event", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,7 +333,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Organization", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Organization", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,7 +361,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Person", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Person", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,7 +384,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("People");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Photo", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Photo", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -210,7 +406,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("Photos.Shared.PrintRequest", b =>
+            modelBuilder.Entity("Photos.Shared.Models.PrintRequest", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +432,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("PrintRequests");
                 });
 
-            modelBuilder.Entity("Photos.Shared.PrintRequestPhoto", b =>
+            modelBuilder.Entity("Photos.Shared.Models.PrintRequestPhoto", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,7 +460,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("PrintRequestPhotos");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Season", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Season", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -286,7 +482,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("Seasons");
                 });
 
-            modelBuilder.Entity("Photos.Shared.SingleUseLink", b =>
+            modelBuilder.Entity("Photos.Shared.Models.SingleUseLink", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -316,7 +512,7 @@ namespace Photos.Web.Migrations
                     b.ToTable("SingleUseLinks");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Team", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Team", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -338,9 +534,60 @@ namespace Photos.Web.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("Photos.Shared.AccessCode", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Photos.Shared.Season", "Season")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Photos.Shared.Models.AccessCode", b =>
+                {
+                    b.HasOne("Photos.Shared.Models.Season", "Season")
                         .WithMany("AccessCodes")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -349,15 +596,15 @@ namespace Photos.Web.Migrations
                     b.Navigation("Season");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Authorization", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Authorization", b =>
                 {
-                    b.HasOne("Photos.Shared.Person", "Person")
+                    b.HasOne("Photos.Shared.Models.Person", "Person")
                         .WithMany("Authorizations")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Photos.Shared.Season", "Season")
+                    b.HasOne("Photos.Shared.Models.Season", "Season")
                         .WithMany("Authorizations")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -368,30 +615,30 @@ namespace Photos.Web.Migrations
                     b.Navigation("Season");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Event", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Event", b =>
                 {
-                    b.HasOne("Photos.Shared.Season", null)
+                    b.HasOne("Photos.Shared.Models.Season", null)
                         .WithMany("Events")
                         .HasForeignKey("SeasonId");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Organization", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Organization", b =>
                 {
-                    b.HasOne("Photos.Shared.Category", null)
+                    b.HasOne("Photos.Shared.Models.Category", null)
                         .WithMany("Organizations")
                         .HasForeignKey("CategoryId");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Photo", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Photo", b =>
                 {
-                    b.HasOne("Photos.Shared.Event", null)
+                    b.HasOne("Photos.Shared.Models.Event", null)
                         .WithMany("Photos")
                         .HasForeignKey("EventId");
                 });
 
-            modelBuilder.Entity("Photos.Shared.PrintRequest", b =>
+            modelBuilder.Entity("Photos.Shared.Models.PrintRequest", b =>
                 {
-                    b.HasOne("Photos.Shared.Person", "Person")
+                    b.HasOne("Photos.Shared.Models.Person", "Person")
                         .WithMany("PrintRequests")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -400,15 +647,15 @@ namespace Photos.Web.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("Photos.Shared.PrintRequestPhoto", b =>
+            modelBuilder.Entity("Photos.Shared.Models.PrintRequestPhoto", b =>
                 {
-                    b.HasOne("Photos.Shared.Photo", "Photo")
+                    b.HasOne("Photos.Shared.Models.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Photos.Shared.PrintRequest", "PrintRequest")
+                    b.HasOne("Photos.Shared.Models.PrintRequest", "PrintRequest")
                         .WithMany("Photos")
                         .HasForeignKey("PrintRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -419,22 +666,22 @@ namespace Photos.Web.Migrations
                     b.Navigation("PrintRequest");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Season", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Season", b =>
                 {
-                    b.HasOne("Photos.Shared.Team", null)
+                    b.HasOne("Photos.Shared.Models.Team", null)
                         .WithMany("Seasons")
                         .HasForeignKey("TeamId");
                 });
 
-            modelBuilder.Entity("Photos.Shared.SingleUseLink", b =>
+            modelBuilder.Entity("Photos.Shared.Models.SingleUseLink", b =>
                 {
-                    b.HasOne("Photos.Shared.Person", "Person")
+                    b.HasOne("Photos.Shared.Models.Person", "Person")
                         .WithMany("SingleUseLinks")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Photos.Shared.Season", "Season")
+                    b.HasOne("Photos.Shared.Models.Season", "Season")
                         .WithMany("SingleUseLinks")
                         .HasForeignKey("SeasonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -445,29 +692,29 @@ namespace Photos.Web.Migrations
                     b.Navigation("Season");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Team", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Team", b =>
                 {
-                    b.HasOne("Photos.Shared.Organization", null)
+                    b.HasOne("Photos.Shared.Models.Organization", null)
                         .WithMany("Teams")
                         .HasForeignKey("OrganizationId");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Category", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Category", b =>
                 {
                     b.Navigation("Organizations");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Event", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Event", b =>
                 {
                     b.Navigation("Photos");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Organization", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Organization", b =>
                 {
                     b.Navigation("Teams");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Person", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Person", b =>
                 {
                     b.Navigation("Authorizations");
 
@@ -476,12 +723,12 @@ namespace Photos.Web.Migrations
                     b.Navigation("SingleUseLinks");
                 });
 
-            modelBuilder.Entity("Photos.Shared.PrintRequest", b =>
+            modelBuilder.Entity("Photos.Shared.Models.PrintRequest", b =>
                 {
                     b.Navigation("Photos");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Season", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Season", b =>
                 {
                     b.Navigation("AccessCodes");
 
@@ -492,7 +739,7 @@ namespace Photos.Web.Migrations
                     b.Navigation("SingleUseLinks");
                 });
 
-            modelBuilder.Entity("Photos.Shared.Team", b =>
+            modelBuilder.Entity("Photos.Shared.Models.Team", b =>
                 {
                     b.Navigation("Seasons");
                 });
