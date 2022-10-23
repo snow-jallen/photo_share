@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Photos.Shared;
+using Photos.Shared.Models;
 
 namespace Photos.Web;
 

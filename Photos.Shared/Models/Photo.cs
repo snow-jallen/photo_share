@@ -1,4 +1,4 @@
-﻿namespace Photos.Shared;
+﻿namespace Photos.Shared.Models;
 
 public class Photo
 {
