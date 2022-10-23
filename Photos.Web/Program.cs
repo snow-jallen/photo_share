@@ -6,8 +6,9 @@ using Photos.Web.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var databaseName = builder.Configuration["Database"] ?? "photos.db";
 builder.Services.AddDbContext<PhotoContext>(options =>
-    options.UseSqlite("data source=photos.db"));
+    options.UseSqlite($"data source={databaseName}"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
