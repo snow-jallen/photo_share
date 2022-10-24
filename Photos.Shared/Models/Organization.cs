@@ -7,5 +7,5 @@ public class Organization
     public bool IsActive { get; set; }
     public string? PrimaryColor { get; set; }
     public string? LogoUrl { get; set; }
-    public List<Team> Teams { get; set; }
+    public List<Team> Teams { get; set; } = new();
 }

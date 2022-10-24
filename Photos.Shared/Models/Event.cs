@@ -6,5 +6,5 @@ public class Event
     public string? Name { get; set; }
     public DateOnly Date { get; set; }
     public string? Location { get; set; }
-    public List<Photo> Photos { get; set; }
+    public List<Photo> Photos { get; set; } = new();
 }

@@ -6,7 +6,7 @@ public class Person
     public string Name { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
-    public List<Authorization> Authorizations { get; set; }
-    public List<SingleUseLink> SingleUseLinks { get; set; }
-    public List<PrintRequest> PrintRequests { get; set; }
+    public List<Authorization> Authorizations { get; set; } = new();
+    public List<SingleUseLink> SingleUseLinks { get; set; } = new();
+    public List<PrintRequest> PrintRequests { get; set; } = new();
 }

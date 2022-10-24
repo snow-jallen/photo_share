@@ -8,5 +8,5 @@ public class PrintRequest
     public string Comments { get; set; }
     public DateTime RequestedOn { get; set; }
     public DateTime? ClosedOn { get; set; }
-    public List<PrintRequestPhoto> Photos { get; set; }
+    public List<PrintRequestPhoto> Photos { get; set; } = new();
 }
