@@ -1,0 +1,20 @@
+﻿@using Photos.Shared.Models
+@using Photos.Web.Data
+@inject PhotoContext context
+
+<div>
+    <h3>@Category.Name</h3>
+
+    
+    @foreach(var organization in Category.Organizations)
+    {
+        <OrganizationView Organization=organization />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Category Category{ get; set; }
+
+
+}

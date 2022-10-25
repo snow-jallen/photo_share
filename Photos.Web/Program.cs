@@ -10,7 +10,6 @@ var databaseName = builder.Configuration["Database"] ?? "photos.db";
 builder.Services.AddDbContext<PhotoContext>(options =>
     options.UseSqlite($"data source={databaseName}"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
@@ -19,9 +18,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<PhotoContext>();
 builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
 builder.Services.AddHostedService<DefaultUserService>();
+builder.Services.AddHttpLogging(options => options.LoggingFields = Microsoft.AspNetCore.HttpLogging.HttpLoggingFields.All);
 
 var app = builder.Build();
+
+app.UseHttpLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,7 +46,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseEndpoints((endpoints) =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapBlazorHub();
+});
+
 
 app.Run();
 

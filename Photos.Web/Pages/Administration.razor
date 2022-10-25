@@ -1,0 +1,47 @@
+﻿@using Microsoft.EntityFrameworkCore
+@using Photos.Shared.Models
+@using Photos.Web.Data
+@inject ILogger<Administration> logger
+@inject PhotoContext context
+
+<h3>Administration</h3>
+@if (showAddScreen)
+{
+    <div>
+        <input @bind=newCategoryName />
+        <button @onclick=addCategory>Add</button>
+        <button @onclick=toggleScreen>Cancel</button>
+    </div>
+}
+else
+{
+    <button @onclick=toggleScreen>➕</button>
+}
+
+@foreach(var category in Categories)
+{
+    <CategoryView Category=category />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await context.Categories.Include(c => c.Organizations).ThenInclude(o => o.Teams).ThenInclude(t => t.Seasons).ThenInclude(s => s.Events).ToListAsync();
+    }
+
+    public List<Category> Categories { get; set; }
+
+    bool showAddScreen = false;
+    string newCategoryName;
+
+    void toggleScreen()
+    {
+        showAddScreen = !showAddScreen;
+    }
+
+    async Task addCategory()
+    {
+        await context.Categories.AddAsync(new Category() { Name = newCategoryName });
+        await context.SaveChangesAsync();
+    }
+}
